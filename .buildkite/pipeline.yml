@@ -8,7 +8,13 @@ steps:
           watch:
             - path: "service-app"
               config:
-                trigger: "monorepo-service-app-example"
+                label: "monorepo-service-app"
+                command: "buildkite-agent pipeline upload serivce-app/.buildkite/pipeline.yml"
+                label: "Upload monorepo service-app pipeline"
+                key: service-app-pipeline-upload
             - path: "test"
               config:
-                trigger: "monorepo-test-example"
+                label: "monorepo-test"
+                command: "buildkite-agent pipeline upload test/.buildkite/pipeline.yml"
+                label: "Upload monorepo test pipeline"
+                key: test-pipeline-upload

@@ -58,7 +58,6 @@ You can watch any directory in your monorepo by specifying the `watch` attribute
 For a step-by-step walkthrough, see:
 [**How to set up Continuous Integration for a monorepo using Buildkite**](https://adikari.medium.com/set-up-continuous-integration-for-monorepo-using-buildkite-61539bb0ed76)
 
-
 **Project Directories Structure (simplified)**
 
 ```
@@ -96,9 +95,11 @@ steps:
 ```
 
 ## Sub-Pipeline Setup
+
 Each triggered pipeline (e.g. `monorepo-service-app-example`) should have a step like the following in its pipeline settings, so it knows which config file to load:
 
 For the `monorepo-service-app-example` pipeline:
+
 ```yaml
 steps:
   - label: ":pipeline:"
@@ -106,6 +107,7 @@ steps:
 ```
 
 For the `monorepo-test-example` pipeline:
+
 ```yaml
 steps:
   - label: ":pipeline:"
@@ -125,10 +127,11 @@ steps:
 ## GitHub Webhook Setup
 
 Ensure GitHub webhooks or GitHub App integration is enabled for the repository:
+
 - Go to Pipeline Settings → GitHub and follow the instructions.
 - Enable Push and Pull Request events.
 
-## Create the Pipelines
+## Create the Pipeline
 
 ### 1. **Create the Root Pipeline**
 
@@ -138,23 +141,21 @@ This pipeline uses the `monorepo-diff` plugin to detect changes and trigger the 
 
 📄 View the full [root pipeline template](templates/root/.buildkite/template.yml).
 
+When changes are detected in either of the following modules, their respective pipelines will be uploaded to BuildKite and run.
+
 ---
 
-### 2. **Create the Service App Pipeline**
+#### A. **Service App Pipeline**
 
 This pipeline will run whenever changes are detected in the `service-app/` folder.
-
-[![Add to Buildkite](https://buildkite.com/button.svg)](https://buildkite.com/new?template=https://github.com/buildkite/monorepo-example/tree/main/templates/service-app)
 
 📄 View the full [service-app pipeline template](templates/service-app/.buildkite/template.yml).
 
 ---
 
-### 3. **Create the Test Pipeline**
+#### B. **Test Pipeline**
 
 This pipeline will run whenever changes are detected in the `test/` folder.
-
-[![Add to Buildkite](https://buildkite.com/button.svg)](https://buildkite.com/new?template=https://github.com/buildkite/monorepo-example/tree/main/templates/test)
 
 📄 View the full [test pipeline template](templates/test/.buildkite/template.yml).
 
@@ -163,4 +164,5 @@ This pipeline will run whenever changes are detected in the `test/` folder.
 ---
 
 ## License
+
 See [LICENSE.md](LICENSE.md) (MIT)
