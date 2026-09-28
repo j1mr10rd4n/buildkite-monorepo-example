@@ -18,3 +18,4 @@ steps:
                 command: "buildkite-agent pipeline upload test/.buildkite/pipeline.yml"
                 label: "Upload monorepo test pipeline"
                 key: test-pipeline-upload
+          log_level: "debug"
