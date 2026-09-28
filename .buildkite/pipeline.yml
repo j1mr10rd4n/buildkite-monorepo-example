@@ -2,8 +2,10 @@ steps:
   - label: "Detect changed projects"
     key: diff
     soft_fail: true
+    env:
+      BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH: "true"
     plugins:
-      - monorepo-diff#v1.11.2:
+      - j1mr10rd4n/monorepo-diff#v1.11.3:
           diff: .buildkite/scripts/git-diff-files.sh
           watch:
             - path: "service-app"
