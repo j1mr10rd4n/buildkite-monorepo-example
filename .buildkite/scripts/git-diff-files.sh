@@ -12,25 +12,27 @@ fi
 
 BRANCH_POINT_COMMIT=$(git merge-base "$BASE_BRANCH" "$COMMIT")
 
-echo "⚙️ Diff between $COMMIT and $BRANCH_POINT_COMMIT"
+>&2 echo "⚙️ Diff between $COMMIT and $BRANCH_POINT_COMMIT"
 
 CHANGED_FILES=$(git --no-pager diff --name-only "$BRANCH_POINT_COMMIT".."$COMMIT" | \
   grep -Ev '^\.buildkite/|\.md$|^README\.md$|^LICENSE$' || true)
 
 if [[ -z "$CHANGED_FILES" ]]; then
-  echo ""
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo "✅ No changes detected!"
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo "No triggering of pipelines was necessary."
-  echo ""
+  >&2 echo ""
+  >&2 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  >&2 echo "✅ No changes detected!"
+  >&2 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  >&2 echo "No triggering of pipelines was necessary."
+  >&2 echo ""
   buildkite-agent annotate "✅ No changes detected - no pipelines triggered." --style "info"
   exit 0
 fi
 
-echo ""
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "🚀 Changes detected in:"
+>&2 echo ""
+>&2 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+>&2 echo "🚀 Changes detected in:"
+>&2 echo "$CHANGED_FILES"
+>&2 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+>&2 echo ""
+
 echo "$CHANGED_FILES"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo ""
